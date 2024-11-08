@@ -1,3 +1,3 @@
 # vcardresume
-ON WORKINGSTATE 
+ON WORKINGSTATE...
 <p>SOON ADD A PREVIEW</p>
