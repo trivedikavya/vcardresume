@@ -6,6 +6,8 @@ on:
 jobs:
   reply-with-linkedin:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     # Only run if the comment starts with /linkedin
     if: contains(github.event.comment.body, '/linkedin')
     steps:
@@ -15,7 +17,6 @@ jobs:
           script: |
             const commentBody = context.payload.comment.body;
             
-            // Check if the comment is exactly '/linkedin' or contains it
             if (commentBody.includes('/linkedin')) {
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
