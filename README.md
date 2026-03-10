@@ -35,3 +35,7 @@ git clone https://github.com/trivedikavya/vcardresume.git
 
 Since this was my first attempt at a portfolio, there is always room for improvement! **Feel free to raise an issue or submit a Pull Request (PR) to enhance it.** Whether it's optimizing the CSS, adding new animations, or improving accessibility, your help is welcome.
 
+File Name,Trigger,Action
+issue-bot.yml,New Issue,"Greets user, mentions 24h wait time."
+pr-bot.yml,New PR,Checks for linked issues; closes after 1 min if missing.
+linkedin-bot.yml,Comment: /linkedin,Automatically replies with your LinkedIn link.
