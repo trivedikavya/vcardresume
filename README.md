@@ -1,6 +1,3 @@
-To wrap this project up, here is a polished and professional `README.md` that replaces the "WORKINGSTATE" placeholder. It adds context about your journey, outlines the features you've built, and invites the community to collaborate.
-
----
 
 # 📇 vCard Portfolio Website
 
