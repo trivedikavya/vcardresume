@@ -1,0 +1,47 @@
+name: PR Guardian
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet and Validate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const body = pr.body ? pr.body.toLowerCase() : "";
+            
+            // Check for common keywords like "fixes #1" or "closes #1"
+            const isLinked = /#\d+|fixes|closes|resolves/.test(body);
+
+            // 1. Initial Greeting
+            await github.rest.issues.createComment({
+              issue_number: pr.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Thanks for the PR, @${{ github.actor }}! We are checking your submission now..."
+            });
+
+            if (!isLinked) {
+              // 2. Warning Message
+              await github.rest.issues.createComment({
+                issue_number: pr.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: "⚠️ **Action Required:** This PR does not mention a linked issue (e.g., 'Fixes #123'). \n\n**Note:** This PR will be automatically closed in 10 seconds to keep the repo clean."
+              });
+
+              // 3. Wait 10 seconds
+              await new Promise(resolve => setTimeout(resolve, 10000));
+
+              // 4. Close PR
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                state: 'closed'
+              });
+            }
