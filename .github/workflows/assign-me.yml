@@ -1,1 +1,20 @@
+name: Assign Me
+on:
+  issue_comment:
+    types: [created]
 
+jobs:
+  assign:
+    if: github.event.comment.body == '/assignme'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Busy Check and Assign
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./.github/scripts/busy-check.js');
+            await script({github, context});
