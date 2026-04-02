@@ -1,0 +1,11 @@
+Project Name: vCard Automation Suite
+Goal: A professional portfolio with automated project management.
+Roadmap: 
+1. Build automated triage.
+2. Implement 1-person-1-issue rule.
+3. Launch Dark-Theme Maintainer Dashboard.
+Rules:
+- Typos/Docs = Low
+- Bug fixes = Mid
+- New Features/Security = High
+- Spam/Self-promotion = Ignore
