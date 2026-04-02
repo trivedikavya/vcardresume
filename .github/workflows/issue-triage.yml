@@ -13,6 +13,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
       
+      # Step to install the libraries needed for your gemini-logic.js script
       - name: Install Dependencies
         run: npm install @google/generative-ai @octokit/rest
 
