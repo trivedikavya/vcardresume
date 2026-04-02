@@ -4,24 +4,19 @@ on:
     types: [created]
 
 jobs:
-  reply-with-linkedin:
+  reply:
+    if: contains(github.event.comment.body, '/linkedin')
     runs-on: ubuntu-latest
     permissions:
       issues: write
-    # Only run if the comment starts with /linkedin
-    if: contains(github.event.comment.body, '/linkedin')
     steps:
-      - name: Reply to Comment
+      - name: Share LinkedIn
         uses: actions/github-script@v7
         with:
           script: |
-            const commentBody = context.payload.comment.body;
-            
-            if (commentBody.includes('/linkedin')) {
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: "Hey there! 👋 You can connect with the maintainer, **Kavya Trivedi**, right here on LinkedIn: \n\n🔗 [Kavya Trivedi's LinkedIn](https://www.linkedin.com/in/trivedikavya/) \n\nFeel free to send a DM regarding your issue!"
-              });
-            }
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "👋 You can connect with **Kavya Trivedi** here: [LinkedIn](https://www.linkedin.com/in/trivedikavya/)"
+            });
