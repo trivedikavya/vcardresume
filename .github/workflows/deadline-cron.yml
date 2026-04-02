@@ -1,1 +1,19 @@
+name: Deadline Enforcer
+on:
+  schedule:
+    - cron: '0 0 * * *' # Every midnight
 
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Check Deadlines
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./.github/scripts/deadline-enforcer.js');
+            await script({github, context});
